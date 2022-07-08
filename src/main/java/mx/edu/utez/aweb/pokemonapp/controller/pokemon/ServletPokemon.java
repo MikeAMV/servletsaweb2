@@ -2,6 +2,7 @@ package mx.edu.utez.aweb.pokemonapp.controller.pokemon;
 
 import mx.edu.utez.aweb.pokemonapp.model.pokemon.BeanPokemon;
 import mx.edu.utez.aweb.pokemonapp.service.pokemon.ServicePokemon;
+import mx.edu.utez.aweb.pokemonapp.utils.ResultAction;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,5 +50,39 @@ public class ServletPokemon extends HttpServlet {
                 break;
         }
         request.getRequestDispatcher(urlRedirect).forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html");
+        action = request.getServletPath();
+        switch (action) {
+            case "/add-pokemon":
+                String nombre = request.getParameter("name");
+                String type = request.getParameter("type");
+                String health = request.getParameter("health");
+                String estatura = request.getParameter("estatura");
+                String damage = request.getParameter("damage");
+                String peso = request.getParameter("peso");
+                BeanPokemon pokemon = new BeanPokemon();
+                pokemon.setName(nombre);
+                pokemon.setPower(Double.parseDouble(damage));
+                pokemon.setWeight(Double.parseDouble(peso));
+                pokemon.setHeight(Double.parseDouble(estatura));
+                pokemon.setHealth(Double.parseDouble(health));
+                pokemon.setPokemonType(type);
+                ResultAction result = servicePokemon.save(pokemon);
+                urlRedirect = "/get-pokemons?result="+
+                    result.isResult()+"&message="+result.getMessage()
+                +"&status="+result.getStatus();
+                break;
+            default:
+                urlRedirect = "/get-pokemons";
+                break;
+        }
+        response.sendRedirect(request.getContextPath() + urlRedirect);
     }
 }

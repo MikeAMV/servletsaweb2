@@ -36,11 +36,34 @@ public class DaoPokemon {
             }
         } catch (SQLException e) {
             Logger.getLogger(DaoPokemon.class.getName())
-                    .log(Level.SEVERE,"Error findAll", e);
+                    .log(Level.SEVERE, "Error findAll", e);
         } finally {
             closeConnections();
         }
         return pokemons;
+    }
+
+    public boolean save(BeanPokemon pokemon) {
+        try {
+            conn = new MySQLConnection().getConnection();
+            String query = "INSERT INTO pokemons" +
+                    "(name, health, power, weigth, heigth, type)" +
+                    " VALUES (?,?,?,?,?,?)";
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1, pokemon.getName());
+            pstm.setDouble(2, pokemon.getHealth());
+            pstm.setDouble(3, pokemon.getPower());
+            pstm.setDouble(4, pokemon.getWeight());
+            pstm.setDouble(5, pokemon.getHeight());
+            pstm.setString(6, pokemon.getPokemonType());
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoPokemon.class.getName())
+                    .log(Level.SEVERE, "Error save", e);
+            return false;
+        } finally {
+            closeConnections();
+        }
     }
 
     public void closeConnections() {

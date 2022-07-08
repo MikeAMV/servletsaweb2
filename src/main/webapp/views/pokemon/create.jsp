@@ -19,22 +19,28 @@
     <div class="row">
         <div class="col-12">
             <div class="card mt-5">
-                <div class="card-header">REGISTRO DE POKEMON</div>
+                <div class="card-header">REGISTRAR POKEMON</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <form class="needs-validation" action="add-pokemon" method="POST">
+                            <form class="needs-validation" novalidate action="add-pokemon" method="post">
                                 <div class="form-group mb-3">
                                     <div class="row">
                                         <div class="col">
                                             <label class="fw-bold" for="pokemon">Nombre</label>
-                                            <input name="name" id="pokemon"
+                                            <input name="name" id="pokemon" required
                                                    class="form-control"/>
+                                            <div class="invalid-feedback">
+                                                Campo obligatio
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold" for="health">Puntos de salud</label>
-                                            <input name="health" id="health"
+                                            <input name="health" id="health" required
                                                    class="form-control" type="number"/>
+                                            <div class="invalid-feedback">
+                                                Campo obligatio
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -42,13 +48,19 @@
                                     <div class="row">
                                         <div class="col">
                                             <label class="fw-bold" for="type">Tipo</label>
-                                            <input name="name" id="type"
+                                            <input name="type" id="type" required
                                                    class="form-control"/>
+                                            <div class="invalid-feedback">
+                                                Campo obligatio
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold" for="heigth">Estatura</label>
-                                            <input name="health" id="heigth"
+                                            <input name="estatura" id="heigth" required
                                                    class="form-control" type="number"/>
+                                            <div class="invalid-feedback">
+                                                Campo obligatio
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -56,21 +68,27 @@
                                     <div class="row">
                                         <div class="col">
                                             <label class="fw-bold" for="power">Puntos de ataque</label>
-                                            <input name="name" id="power"
+                                            <input name="damage" id="power" required
                                                    class="form-control" type="number"/>
+                                            <div class="invalid-feedback">
+                                                Campo obligatio
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold" for="weigth">Peso</label>
-                                            <input name="health" id="weigth"
+                                            <input name="peso" id="weigth" required
                                                    class="form-control" type="number"/>
+                                            <div class="invalid-feedback">
+                                                Campo obligatio
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="row">
                                         <div class="col-12 text-end">
-                                            <button class="btn btn-danger btn-sm">Cancelar</button>
-                                            <button class="btn btn-success btn-sm">Guardar</button>
+                                            <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+                                            <button type="submit" class="btn btn-success btn-sm">Guardar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -82,6 +100,25 @@
         </div>
     </div>
 </div>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
 <jsp:include page="../../templates/footer.jsp"/>
 </body>
 </html>
