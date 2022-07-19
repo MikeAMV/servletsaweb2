@@ -19,7 +19,7 @@ import java.util.logging.Logger;
                 "/get-pokemons",
                 "/add-pokemon",
                 "/create-pokemon",
-                "/update-pokemon",
+                "/save-pokemon",
                 "/get-pokemon"
         })
 public class ServletPokemon extends HttpServlet {
@@ -43,6 +43,17 @@ public class ServletPokemon extends HttpServlet {
                 break;
             case "/create-pokemon":
                 urlRedirect = "/views/pokemon/create.jsp";
+                break;
+            case "/get-pokemon":
+                String id = request.getParameter("id");
+                id = (id == null) ? "0" : id;
+                try {
+                    BeanPokemon pokemon = servicePokemon.getPokemon(Long.parseLong(id));
+                    request.setAttribute("pokemon", pokemon);
+                    urlRedirect = "/views/pokemon/update.jsp";
+                } catch (Exception e) {
+                    urlRedirect = "/get-pokemons";
+                }
                 break;
             default:
                 request.setAttribute("pokemons", servicePokemon.getAll());
@@ -75,9 +86,30 @@ public class ServletPokemon extends HttpServlet {
                 pokemon.setHealth(Double.parseDouble(health));
                 pokemon.setPokemonType(type);
                 ResultAction result = servicePokemon.save(pokemon);
-                urlRedirect = "/get-pokemons?result="+
-                    result.isResult()+"&message="+result.getMessage()
-                +"&status="+result.getStatus();
+                urlRedirect = "/get-pokemons?result=" +
+                        result.isResult() + "&message=" + result.getMessage()
+                        + "&status=" + result.getStatus();
+                break;
+            case "/save-pokemon":
+                String nombre2 = request.getParameter("name");
+                String type2 = request.getParameter("type");
+                String health2 = request.getParameter("health");
+                String estatura2 = request.getParameter("estatura");
+                String damage2 = request.getParameter("damage");
+                String peso2 = request.getParameter("peso");
+                String id = request.getParameter("id");
+                BeanPokemon pokemon2 = new BeanPokemon();
+                pokemon2.setId(Long.parseLong(id));
+                pokemon2.setName(nombre2);
+                pokemon2.setPower(Double.parseDouble(damage2));
+                pokemon2.setWeight(Double.parseDouble(peso2));
+                pokemon2.setHeight(Double.parseDouble(estatura2));
+                pokemon2.setHealth(Double.parseDouble(health2));
+                pokemon2.setPokemonType(type2);
+                ResultAction result2 = servicePokemon.update(pokemon2);
+                urlRedirect = "/get-pokemons?result=" +
+                        result2.isResult() + "&message=" + result2.getMessage()
+                        + "&status=" + result2.getStatus();
                 break;
             default:
                 urlRedirect = "/get-pokemons";
