@@ -52,8 +52,12 @@
                                 <td>
                                     <a href="get-pokemon?id=${pokemon.id}" class="btn btn-warning
                                     btn-sm">EDITAR</a>
-                                    <a href="delete-pokemon?id=${pokemon.id}"
-                                       class="btn btn-danger btn-sm">ELIMINAR</a>
+                                    <form action="delete-pokemon" method="post">
+                                        <input type="hidden" value="${pokemon.id}" name="id"/>
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            ELIMINAR
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>

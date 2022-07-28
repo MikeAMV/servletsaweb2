@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +22,8 @@ import java.util.logging.Logger;
                 "/add-pokemon",
                 "/create-pokemon",
                 "/save-pokemon",
-                "/get-pokemon"
+                "/get-pokemon",
+                "/delete-pokemon"
         })
 public class ServletPokemon extends HttpServlet {
     Logger logger = Logger.getLogger("ServletPokemon");
@@ -87,7 +90,8 @@ public class ServletPokemon extends HttpServlet {
                 pokemon.setPokemonType(type);
                 ResultAction result = servicePokemon.save(pokemon);
                 urlRedirect = "/get-pokemons?result=" +
-                        result.isResult() + "&message=" + result.getMessage()
+                        result.isResult() + "&message=" +
+                        URLEncoder.encode(result.getMessage(), StandardCharsets.UTF_8.name())
                         + "&status=" + result.getStatus();
                 break;
             case "/save-pokemon":
@@ -108,8 +112,17 @@ public class ServletPokemon extends HttpServlet {
                 pokemon2.setPokemonType(type2);
                 ResultAction result2 = servicePokemon.update(pokemon2);
                 urlRedirect = "/get-pokemons?result=" +
-                        result2.isResult() + "&message=" + result2.getMessage()
+                        result2.isResult() + "&message=" +
+                        URLEncoder.encode(result2.getMessage(), StandardCharsets.UTF_8.name())
                         + "&status=" + result2.getStatus();
+                break;
+            case "/delete-pokemon":
+                String idPokemon = request.getParameter("id");
+                ResultAction deleteResult = servicePokemon.delete(idPokemon);
+                urlRedirect = "/get-pokemons?result=" +
+                        deleteResult.isResult() + "&message=" +
+                        URLEncoder.encode(deleteResult.getMessage(), StandardCharsets.UTF_8.name())
+                        + "&status=" + deleteResult.getStatus();
                 break;
             default:
                 urlRedirect = "/get-pokemons";

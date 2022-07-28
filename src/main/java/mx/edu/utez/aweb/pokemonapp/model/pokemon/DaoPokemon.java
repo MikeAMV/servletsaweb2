@@ -116,6 +116,22 @@ public class DaoPokemon {
         }
     }
 
+    public boolean delete(Long id) {
+        try {
+            conn = new MySQLConnection().getConnection();
+            String query = "DELETE FROM pokemons WHERE id = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setLong(1, id);
+            return pstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoPokemon.class.getName())
+                    .log(Level.SEVERE, "Error delete method");
+            return false;
+        } finally {
+            closeConnections();
+        }
+    }
+
     public void closeConnections() {
         try {
             if (conn != null) {
