@@ -14,12 +14,26 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 @WebServlet(name = "ServletAuth",
-        urlPatterns = {"/login", "/logout"})
+        urlPatterns = {"/login", "/logout", "/signin"})
 public class ServletAuth extends HttpServlet {
     String action;
     String urlRedirect = "/get-pokemons";
     HttpSession session;
     AuthService authService = new AuthService();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        action = request.getServletPath();
+        switch (action) {
+            case "/signin":
+                urlRedirect = "/index.jsp";
+                break;
+            default:
+                urlRedirect = "/index.jsp";
+        }
+        request.getRequestDispatcher(urlRedirect).forward(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -28,7 +28,7 @@
                         <div class="col-6">POKEMONS</div>
                         <div class="col-6 text-end">
                             <a href="create-pokemon" class="btn btn-outline-success btn-sm">
-                                Registrar pokemon
+                                <i data-feather="plus"></i> Registrar pokemon
                             </a>
                         </div>
                     </div>
@@ -38,6 +38,7 @@
                         <thead>
                         <th>#</th>
                         <th>Pokemon</th>
+                        <th>Puntos de vida</th>
                         <th>Acciones</th>
                         </thead>
                         <tbody>
@@ -49,13 +50,14 @@
                                 <td>
                                     <c:out value="${pokemon.name}"></c:out>
                                 </td>
+                                <td><c:out value="${pokemon.health}"/></td>
                                 <td>
                                     <a href="get-pokemon?id=${pokemon.id}" class="btn btn-warning
-                                    btn-sm">EDITAR</a>
+                                    btn-sm"><i data-feather="edit"></i></a>
                                     <form action="delete-pokemon" method="post">
                                         <input type="hidden" value="${pokemon.id}" name="id"/>
                                         <button type="submit" class="btn btn-danger btn-sm">
-                                            ELIMINAR
+                                            <i data-feather="trash-2"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -70,5 +72,8 @@
 </div>
 
 <jsp:include page="../../templates/footer.jsp"/>
+<script>
+    feather.replace();
+</script>
 </body>
 </html>
