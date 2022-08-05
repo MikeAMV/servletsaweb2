@@ -23,7 +23,7 @@
             </ul>
         </div>
         <form method="post" action="logout">
-            <button type="submit" class="btn btn-outline-danger">
+            <button type="submit" class="btn btn-outline-danger mt-1">
                 <i data-feather="log-out"></i> Cerrar sesión
             </button>
         </form>

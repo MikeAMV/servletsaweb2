@@ -5,10 +5,13 @@ import mx.edu.utez.aweb.pokemonapp.service.pokemon.ServicePokemon;
 import mx.edu.utez.aweb.pokemonapp.utils.ResultAction;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -25,11 +28,25 @@ import java.util.logging.Logger;
                 "/get-pokemon",
                 "/delete-pokemon"
         })
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 100
+)
 public class ServletPokemon extends HttpServlet {
     Logger logger = Logger.getLogger("ServletPokemon");
     String action;
     String urlRedirect = "/get-pokemons";
     ServicePokemon servicePokemon = new ServicePokemon();
+
+    String uploadPath = "C:" + File.separator + "temp" + File.separator;
+    String fileName;
+
+    @Override
+    public void init() throws ServletException {
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdir();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -75,24 +92,37 @@ public class ServletPokemon extends HttpServlet {
         action = request.getServletPath();
         switch (action) {
             case "/add-pokemon":
-                String nombre = request.getParameter("name");
-                String type = request.getParameter("type");
-                String health = request.getParameter("health");
-                String estatura = request.getParameter("estatura");
-                String damage = request.getParameter("damage");
-                String peso = request.getParameter("peso");
-                BeanPokemon pokemon = new BeanPokemon();
-                pokemon.setName(nombre);
-                pokemon.setPower(Double.parseDouble(damage));
-                pokemon.setWeight(Double.parseDouble(peso));
-                pokemon.setHeight(Double.parseDouble(estatura));
-                pokemon.setHealth(Double.parseDouble(health));
-                pokemon.setPokemonType(type);
-                ResultAction result = servicePokemon.save(pokemon);
-                urlRedirect = "/get-pokemons?result=" +
-                        result.isResult() + "&message=" +
-                        URLEncoder.encode(result.getMessage(), StandardCharsets.UTF_8.name())
-                        + "&status=" + result.getStatus();
+                try {
+                    for (Part part : request.getParts()) {
+                        fileName = part.getSubmittedFileName();
+                        if (fileName != null)
+                            part.write(uploadPath + fileName);
+                    }
+                    String nombre = request.getParameter("name");
+                    String type = request.getParameter("type");
+                    String health = request.getParameter("health");
+                    String estatura = request.getParameter("estatura");
+                    String damage = request.getParameter("damage");
+                    String peso = request.getParameter("peso");
+                    BeanPokemon pokemon = new BeanPokemon();
+                    pokemon.setName(nombre);
+                    pokemon.setPower(Double.parseDouble(damage));
+                    pokemon.setWeight(Double.parseDouble(peso));
+                    pokemon.setHeight(Double.parseDouble(estatura));
+                    pokemon.setHealth(Double.parseDouble(health));
+                    pokemon.setPokemonType(type);
+                    pokemon.setFileName(fileName);
+                    ResultAction result = servicePokemon.save(pokemon);
+                    urlRedirect = "/get-pokemons?result=" +
+                            result.isResult() + "&message=" +
+                            URLEncoder.encode(result.getMessage(), StandardCharsets.UTF_8.name())
+                            + "&status=" + result.getStatus();
+                } catch (Exception e) {
+                    Logger.getLogger(ServletPokemon.class.getName()).log(Level.SEVERE, "Error addPokemon method" + e.getMessage());
+                    urlRedirect = "/get-pokemons?result=false&message=" +
+                            URLEncoder.encode("Error al registrar el pokemon", StandardCharsets.UTF_8.name())
+                            + "&status=400";
+                }
                 break;
             case "/save-pokemon":
                 String nombre2 = request.getParameter("name");

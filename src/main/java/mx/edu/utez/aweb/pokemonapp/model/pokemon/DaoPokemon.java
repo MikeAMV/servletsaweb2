@@ -47,8 +47,8 @@ public class DaoPokemon {
         try {
             conn = new MySQLConnection().getConnection();
             String query = "INSERT INTO pokemons" +
-                    "(name, health, power, weigth, heigth, type)" +
-                    " VALUES (?,?,?,?,?,?)";
+                    "(name, health, power, weigth, heigth, type,file_name)" +
+                    " VALUES (?,?,?,?,?,?,?)";
             pstm = conn.prepareStatement(query);
             pstm.setString(1, pokemon.getName());
             pstm.setDouble(2, pokemon.getHealth());
@@ -56,6 +56,7 @@ public class DaoPokemon {
             pstm.setDouble(4, pokemon.getWeight());
             pstm.setDouble(5, pokemon.getHeight());
             pstm.setString(6, pokemon.getPokemonType());
+            pstm.setString(7,pokemon.getFileName());
             return pstm.executeUpdate() == 1;
         } catch (SQLException e) {
             Logger.getLogger(DaoPokemon.class.getName())

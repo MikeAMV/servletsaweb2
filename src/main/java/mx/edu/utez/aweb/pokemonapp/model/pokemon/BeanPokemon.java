@@ -12,6 +12,7 @@ public class BeanPokemon {
     private double weight;
     private double height;
     private String pokemonType;
+    private String fileName;
     private List<BeanAbility> abilities;
 
     public BeanPokemon() {
@@ -24,6 +25,18 @@ public class BeanPokemon {
         this.weight = weight;
         this.height = height;
         this.pokemonType = pokemonType;
+        this.abilities = abilities;
+    }
+
+    public BeanPokemon(long id, String name, double health, double power, double weight, double height, String pokemonType, String fileName, List<BeanAbility> abilities) {
+        this.id = id;
+        this.name = name;
+        this.health = health;
+        this.power = power;
+        this.weight = weight;
+        this.height = height;
+        this.pokemonType = pokemonType;
+        this.fileName = fileName;
         this.abilities = abilities;
     }
 
@@ -89,5 +102,13 @@ public class BeanPokemon {
 
     public void setAbilities(List<BeanAbility> abilities) {
         this.abilities = abilities;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

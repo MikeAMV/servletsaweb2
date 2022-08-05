@@ -23,7 +23,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <form class="needs-validation" novalidate action="add-pokemon" method="post">
+                            <form class="needs-validation" novalidate action="add-pokemon" method="post"
+                            enctype="multipart/form-data">
                                 <div class="form-group mb-3">
                                     <div class="row">
                                         <div class="col">
@@ -86,6 +87,21 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="row">
+                                        <div class="col-12">
+                                            <label for="pokemonImg">Imagen del pokemon</label>
+                                            <input type="file" name="pokemonFile"
+                                                   class="form-control form-control-sm"
+                                                   onchange="handleFileChange()"
+                                                   id="pokemonImg" required accept="image/*"/>
+                                            <div class="invalid-feedback">
+                                                Campo obligatorio
+                                            </div>
+                                            <div id="preview" class="mt-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="row">
                                         <div class="col-12 text-end">
                                             <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
                                             <button type="submit" class="btn btn-success btn-sm">Guardar</button>
@@ -117,7 +133,25 @@
                     form.classList.add('was-validated')
                 }, false)
             })
-    })()
+    })();
+
+    const handleFileChange = () => {
+        let inputFile = document.getElementById("pokemonImg").files;1
+        for (let i = 0; i < inputFile.length; i++) {
+            let reader = new FileReader();
+            reader.onloadend = (result) => {
+                let preview = document.getElementById("preview");
+                preview.innerHTML = "";
+                preview.innerHTML = "<img src='" + result.target.result
+                    + "' style='height: 200px;width: auto;'/>";
+            }
+            reader.readAsDataURL(inputFile[i]);
+        }
+    }
+
+    $(document).ready(() => {
+        document.getElementById("loaderDiv").style.display = "none";
+    });
 </script>
 <jsp:include page="../../templates/footer.jsp"/>
 </body>

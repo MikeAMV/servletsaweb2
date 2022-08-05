@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-sm table-hover">
+                    <table class="table table-sm table-hover datatable">
                         <thead>
                         <th>#</th>
                         <th>Pokemon</th>
@@ -73,6 +73,14 @@
 
 <jsp:include page="../../templates/footer.jsp"/>
 <script>
+    $(document).ready(() => {
+        $('.datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
+            },
+        });
+        document.getElementById("loaderDiv").style.display = "none";
+    })
     feather.replace();
 </script>
 </body>

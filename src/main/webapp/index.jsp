@@ -21,7 +21,9 @@
                             <label for="password">Contraseña</label>
                             <input type="password" placeholder="**********" id="password" name="password" class="form-control" required/>
                         </div>
-                        <button class="btn btn-outline-info btn-sm col-md-12" type="submit">INICIAR SESIÓN</button>
+                        <button class="btn btn-secondary btn-sm col-md-12" type="submit">
+                            <i data-feather="log-in"></i> INICIAR SESIÓN
+                        </button>
                     </form>
                 </div>
             </div>
@@ -29,5 +31,11 @@
     </div>
 </div>
 <jsp:include page="./templates/footer.jsp"/>
+<script>
+    $(document).ready(() => {
+        document.getElementById("loaderDiv").style.display = "none";
+    });
+    feather.replace();
+</script>
 </body>
 </html>
