@@ -37,6 +37,7 @@
                     <table class="table table-sm table-hover datatable">
                         <thead>
                         <th>#</th>
+                        <th>Imagen</th>
                         <th>Pokemon</th>
                         <th>Puntos de vida</th>
                         <th>Acciones</th>
@@ -44,6 +45,7 @@
                         <tbody>
                         <c:forEach var="pokemon" items="${pokemons}" varStatus="status">
                             <tr>
+                                <td><img src="download-file?fileName=${pokemon.fileName}" style="height: 100px;width: auto" class=""/></td>
                                 <td>
                                     <c:out value="${status.count}"></c:out>
                                 </td>

@@ -4,6 +4,7 @@ import mx.edu.utez.aweb.pokemonapp.model.pokemon.BeanPokemon;
 import mx.edu.utez.aweb.pokemonapp.service.pokemon.ServicePokemon;
 import mx.edu.utez.aweb.pokemonapp.utils.ResultAction;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +46,8 @@ public class ServletPokemon extends HttpServlet {
     @Override
     public void init() throws ServletException {
         File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) uploadDir.mkdir();
+        if (!uploadDir.exists())
+            uploadDir.mkdir();
     }
 
     @Override
@@ -105,22 +107,24 @@ public class ServletPokemon extends HttpServlet {
                     String damage = request.getParameter("damage");
                     String peso = request.getParameter("peso");
                     BeanPokemon pokemon = new BeanPokemon();
+                    pokemon.setFileName(fileName);
                     pokemon.setName(nombre);
                     pokemon.setPower(Double.parseDouble(damage));
                     pokemon.setWeight(Double.parseDouble(peso));
                     pokemon.setHeight(Double.parseDouble(estatura));
                     pokemon.setHealth(Double.parseDouble(health));
                     pokemon.setPokemonType(type);
-                    pokemon.setFileName(fileName);
                     ResultAction result = servicePokemon.save(pokemon);
                     urlRedirect = "/get-pokemons?result=" +
                             result.isResult() + "&message=" +
                             URLEncoder.encode(result.getMessage(), StandardCharsets.UTF_8.name())
                             + "&status=" + result.getStatus();
                 } catch (Exception e) {
-                    Logger.getLogger(ServletPokemon.class.getName()).log(Level.SEVERE, "Error addPokemon method" + e.getMessage());
+                    Logger.getLogger(ServletPokemon.class.getName()).log(Level.SEVERE,
+                            "Error addPokemon method" + e.getMessage());
                     urlRedirect = "/get-pokemons?result=false&message=" +
-                            URLEncoder.encode("Error al registrar el pokemon", StandardCharsets.UTF_8.name())
+                            URLEncoder.encode("Error al registrar el pokemon",
+                                    StandardCharsets.UTF_8.name())
                             + "&status=400";
                 }
                 break;

@@ -12,8 +12,8 @@ public class BeanPokemon {
     private double weight;
     private double height;
     private String pokemonType;
-    private String fileName;
     private List<BeanAbility> abilities;
+    private String fileName;
 
     public BeanPokemon() {
     }
@@ -28,17 +28,6 @@ public class BeanPokemon {
         this.abilities = abilities;
     }
 
-    public BeanPokemon(long id, String name, double health, double power, double weight, double height, String pokemonType, String fileName, List<BeanAbility> abilities) {
-        this.id = id;
-        this.name = name;
-        this.health = health;
-        this.power = power;
-        this.weight = weight;
-        this.height = height;
-        this.pokemonType = pokemonType;
-        this.fileName = fileName;
-        this.abilities = abilities;
-    }
 
     public long getId() {
         return id;
