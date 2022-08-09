@@ -18,10 +18,10 @@ public class DaoAuth {
             String query = "SELECT * FROM users WHERE username = ? " +
                     "AND password = ? AND status = 1;";
             pstm = conn.prepareStatement(query);
-            pstm.setString(1,username);
-            pstm.setString(2,password);
+            pstm.setString(1, username);
+            pstm.setString(2, password);
             rs = pstm.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 BeanUser user = new BeanUser();
                 user.setUsername(rs.getString("username"));
                 user.setStatus(rs.getInt("status"));
@@ -35,6 +35,25 @@ public class DaoAuth {
         } finally {
             closeConnections();
         }
+    }
+
+    public boolean verifyUser(String username) {
+        try {
+            conn = new MySQLConnection().getConnection();
+            String query = "SELECT id FROM users WHERE " +
+                    "username = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1, username);
+            rs = pstm.executeQuery();
+            if (rs.next())
+                return true;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoAuth.class.getName())
+                    .log(Level.SEVERE, "Error verifyUser" + e);
+        } finally {
+            closeConnections();
+        }
+        return false;
     }
 
     public void closeConnections() {

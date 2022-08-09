@@ -22,7 +22,8 @@ public class RequestFilter implements Filter {
         whiteList.add("/public-home");
         whiteList.add("/signin");
         whiteList.add("/login");
-        System.out.println("INIT");
+        whiteList.add("/recover-password");
+        whiteList.add("/send-email");
     }
 
     @Override

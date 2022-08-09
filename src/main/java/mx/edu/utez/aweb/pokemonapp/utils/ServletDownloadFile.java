@@ -19,7 +19,6 @@ public class ServletDownloadFile extends HttpServlet {
                 resp.setContentType("image/png");
                 resp.setHeader("Content-disposition", "attachment; filename=img.png");
                 String fileName = req.getParameter("fileName");
-                System.out.println(uploadDir + fileName);
                 File img = new File(uploadDir + fileName);
                 try (InputStream in = new FileInputStream(img);
                      OutputStream out = resp.getOutputStream()) {

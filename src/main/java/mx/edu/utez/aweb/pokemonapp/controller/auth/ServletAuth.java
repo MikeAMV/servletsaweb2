@@ -13,8 +13,15 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-@WebServlet(name = "ServletAuth",
-        urlPatterns = {"/login", "/logout", "/signin"})
+@WebServlet(
+        name = "ServletAuth",
+        urlPatterns = {
+                "/login",
+                "/logout",
+                "/signin",
+                "/recover-password",
+                "/send-email"
+        })
 public class ServletAuth extends HttpServlet {
     String action;
     String urlRedirect = "/get-pokemons";
@@ -28,6 +35,9 @@ public class ServletAuth extends HttpServlet {
         switch (action) {
             case "/signin":
                 urlRedirect = "/index.jsp";
+                break;
+            case "/recover-password":
+                urlRedirect = "/views/auth/recoverPassword.jsp";
                 break;
             default:
                 urlRedirect = "/index.jsp";
@@ -51,8 +61,22 @@ public class ServletAuth extends HttpServlet {
                     //user.getRole() == "STUDENT" -> /perfil
                     urlRedirect = "/get-pokemons";
                 } else {
-                    urlRedirect = "/?message=" + URLEncoder.encode(
+                    urlRedirect = "/signin?message=" + URLEncoder.encode(
                             "Usuario y/o contraseña incorrectos",
+                            StandardCharsets.UTF_8.name());
+                }
+                break;
+            case "/send-email":
+                String email = req.getParameter("username");
+                if (email != null) {
+                    authService.sendEmail(email);
+                    urlRedirect = "/signin?message=" + URLEncoder.encode(
+                            "Si existe una cuenta con este usuario," +
+                                    " se ha enviado un correo electrónico.",
+                            StandardCharsets.UTF_8.name());
+                } else {
+                    urlRedirect = "/signin?message=" + URLEncoder.encode(
+                            "Error al enviar el correo de recuperación",
                             StandardCharsets.UTF_8.name());
                 }
                 break;

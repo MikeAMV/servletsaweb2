@@ -45,7 +45,9 @@
                         <tbody>
                         <c:forEach var="pokemon" items="${pokemons}" varStatus="status">
                             <tr>
-                                <td><img src="download-file?fileName=${pokemon.fileName}" style="height: 100px;width: auto" class=""/></td>
+                                <td>
+                                    <img src="download-file?fileName=${pokemon.fileName}"
+                                         style="height: 100px;width: auto" loading="lazy"/></td>
                                 <td>
                                     <c:out value="${status.count}"></c:out>
                                 </td>
