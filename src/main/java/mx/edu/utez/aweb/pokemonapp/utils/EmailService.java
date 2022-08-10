@@ -35,15 +35,15 @@ public class EmailService {
         props.put("mail.smtp.port", port);
         props.put("mail.smtp.auth", auth);
         props.put("mail.smtp.starttls.enable", enable);
-
-        Session session = Session.getInstance(props,
-                new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(email, password);
-                    }
-                });
-        try{
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        try {
+            Session session = Session.getInstance(props,
+                    new Authenticator() {
+                        @Override
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(email, password);
+                        }
+                    });
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email,
                     "SP | Recuperación de contraseña"));
@@ -52,10 +52,10 @@ public class EmailService {
             message.setSubject("Recuperar contraseña");
             message.setContent("<strong>" +
                     "Correo enviado desde Servlets" +
-                    "</strong>","text/html");
+                    "</strong>", "text/html");
             Transport.send(message);
             return true;
-        }catch (AddressException e){
+        } catch (AddressException e) {
             System.out.println("Error AddressException");
             e.printStackTrace();
         } catch (MessagingException e) {

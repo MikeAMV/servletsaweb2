@@ -17,7 +17,7 @@ public class DaoPokemon {
 
     public List<BeanPokemon> findAll() {
         List<BeanPokemon> pokemons = new LinkedList<>();
-        BeanPokemon pokemon = null;
+        BeanPokemon pokemon;
         try {
             conn = new MySQLConnection().getConnection();
             String query = "SELECT * FROM pokemons;";
