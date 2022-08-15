@@ -1,22 +1,11 @@
-
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-
-  <title>Registrar pokemon</title>
+  <title>Registrar USUARIO</title>
   <jsp:include page="../../templates/head.jsp"/>
 </head>
-@ -100,6 +103,139 @@ To change this template use File | Settings | File Templates.
-}, false)
-})
-})()
-
-<title>Registrar USUARIO</title>
-<jsp:include page="../../templates/head.jsp"/>
-
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -34,7 +23,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="get-personas">personas</a>
+          <a class="nav-link" href="get-pokemons">Pokemons</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="get-abilities">Habilidades</a>
@@ -121,7 +110,7 @@
   </div>
 </div>
 <script>
-  document.getElementById("loaderDiv").style.display = "none";
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
   (function () {
     'use strict'
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -140,16 +129,14 @@
                 let curp = document.querySelector("#curp").value;
                 console.log(name)
                 let birthday = document.querySelector("#birthday").value;
-                let newAction = "add-person?name="+ name + "&surname=" + surname + "&curp="+ curp +"&birthday=" + birthday;
+                let newAction = "save-person?name="+ name + "&surname=" + surname + "&curp="+ curp +"&birthday=" + birthday;
                 console.log(newAction)
                 form.setAttribute("action", newAction);
               }, false)
             })
   })()
-
-</script>
-<jsp:include page="../../templates/footer.jsp"/>
-<script>
   document.getElementById("loaderDiv").style.display = "none";
 </script>
+<jsp:include page="../../templates/footer.jsp"/>
 </body>
+</html>
