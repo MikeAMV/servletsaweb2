@@ -109,6 +109,8 @@
 <jsp:include page="../../templates/footer.jsp"/>
 <script>
     $(document).ready(() => {
+
+
         $('.datatable').DataTable({
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
