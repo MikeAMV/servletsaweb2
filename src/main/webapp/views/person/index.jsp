@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="get-pokemons">Pokemons</a>
+                    <a class="nav-link" href="get-persons">persons</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="get-abilities">Habilidades</a>
