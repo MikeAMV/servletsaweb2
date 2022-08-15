@@ -63,7 +63,7 @@
                                         <div class="col">
                                             <label class="fw-bold" for="surname">Surname</label>
                                             <input name="surname" id="surname" required
-                                                   class="form-control" type="number" value="${person.surname}"/>
+                                                   class="form-control" type="text" value="${person.surname}"/>
                                             <div class="invalid-feedback">
                                                 Campo obligatorio
                                             </div>
@@ -74,7 +74,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label class="fw-bold" for="curp">Curp</label>
-                                            <input name="curp" id="curp" required
+                                            <input name="curp" type="text" id="curp" required
                                                    class="form-control" value="${person.curp}"/>
                                             <div class="invalid-feedback">
                                                 Campo obligatorio
@@ -83,7 +83,7 @@
                                         <div class="col">
                                             <label class="fw-bold" for="birthday">Birthday</label>
                                             <input name="birthday" id="birthday" required
-                                                   class="form-control" type="number" value="${person.birthday}"/>
+                                                   class="form-control" type="text" value="${person.birthday}"/>
                                             <div class="invalid-feedback">
                                                 Campo obligatorio
                                             </div>
