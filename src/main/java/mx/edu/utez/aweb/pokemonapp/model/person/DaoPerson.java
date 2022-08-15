@@ -45,6 +45,7 @@ public class DaoPerson {
     }
 
     public boolean save(BeanPerson person){
+        System.out.println(person);
         try {
             conn = new MySQLConnection().getConnection();
             String query = "INSERT INTO persons" +

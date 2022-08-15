@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +58,7 @@ public class ServletPerson extends HttpServlet {
                                 id = (id == null) ? "0" : id;
                                 try {
                                         BeanPerson person = servicePerson.getPerson(Integer.parseInt(id));
+                                        System.out.println(person);
                                         request.setAttribute("person", person);
                                         urlRedirect = "/views/person/update.jsp";
                                 } catch (Exception e) {
@@ -91,6 +93,7 @@ public class ServletPerson extends HttpServlet {
                                         person.setSurname(surname);
                                         person.setCurp(curp);
                                         person.setBirthday(birthday);
+                                        System.out.println(person);
                                         ResultAction result = servicePerson.save(person);
                                         urlRedirect = "/get-persons?result=" +
                                                 result.isResult() + "&message=" +

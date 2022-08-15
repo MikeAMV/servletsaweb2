@@ -59,4 +59,15 @@ public class BeanPerson {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    @Override
+    public String toString() {
+        return "BeanPerson{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", curp='" + curp + '\'' +
+                ", birthday='" + birthday + '\'' +
+                '}';
+    }
 }
