@@ -129,7 +129,7 @@
                     let curp = document.querySelector("#curp").value;
                     console.log(name)
                     let birthday = document.querySelector("#birthday").value;
-                    let newAction = "add-person?name="+ name + "&surname=" + surname + "&curp="+ curp +"&birthday=" + birthday;
+                    let newAction = "save-person?name="+ name + "&surname=" + surname + "&curp="+ curp +"&birthday=" + birthday;
                     console.log(newAction)
                     form.setAttribute("action", newAction);
                 }, false)
