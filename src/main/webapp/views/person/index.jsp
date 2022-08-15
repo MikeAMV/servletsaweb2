@@ -79,10 +79,10 @@
                                     <c:out value="${person.id}"></c:out>
                                 </td>
                                 <td>
-                                    <c:out value="${person.id}"></c:out>
+                                    <c:out value="${person.name}"></c:out>
                                 </td>
                                 <td>
-                                    <c:out value="${person.id}"></c:out>
+                                    <c:out value="${person.surname}"></c:out>
                                 </td>
                                 <td><c:out value="${person.curp}"/></td>
                                 <td><c:out value="${person.birthday}"/></td>

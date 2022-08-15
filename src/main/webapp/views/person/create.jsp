@@ -14,7 +14,39 @@
   <jsp:include page="../../templates/head.jsp"/>
 </head>
 <body>
-<jsp:include page="../../templates/navbar.jsp"/>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="get-persons">
+      <i data-feather="home"></i> Inicio
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="get-persons">
+            <i data-feather="align-left"></i> Persons
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="get-pokemons">Pokemons</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="get-abilities">Habilidades</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="get-users"><i data-feather="users"></i>Usuarios</a>
+        </li>
+      </ul>
+    </div>
+    <form method="post" action="logout">
+      <button type="submit" class="btn btn-outline-danger mt-1">
+        <i data-feather="log-out"></i> Cerrar sesión
+      </button>
+    </form>
+  </div>
+</nav>
 <div class="container">
   <div class="row">
     <div class="col-12">
@@ -23,13 +55,13 @@
         <div class="card-body">
           <div class="row">
             <div class="col-12">
-              <form class="needs-validation" novalidate action="add-person" method="post"
+              <form class="needs-validation" novalidate action="add-person?hola=holamundo" method="post"
                     enctype="multipart/form-data">
                 <div class="form-group mb-3">
                   <div class="row">
                     <div class="col">
-                      <label class="fw-bold" for="person">Nombre</label>
-                      <input name="name" id="person" required
+                      <label class="fw-bold" for="name">Nombre</label>
+                      <input type="text" name="name" id="name" required
                              class="form-control"/>
                       <div class="invalid-feedback">
                         Campo obligatio
@@ -37,7 +69,7 @@
                     </div>
                     <div class="col">
                       <label class="fw-bold" for="surname">Apellido</label>
-                      <input name="surname" id="surname" required
+                      <input type="text" name="surname" id="surname" required
                              class="form-control"/>
                       <div class="invalid-feedback">
                         Campo obligatio
@@ -49,7 +81,7 @@
                   <div class="row">
                     <div class="col">
                       <label class="fw-bold" for="curp">Curp</label>
-                      <input name="curp" id="curp" required
+                      <input type="text" name="curp" id="curp" required
                              class="form-control"/>
                       <div class="invalid-feedback">
                         Campo obligatio
@@ -57,7 +89,7 @@
                     </div>
                     <div class="col">
                       <label class="fw-bold" for="birthday">Birthday</label>
-                      <input name="birthday" id="birthday" required
+                      <input  type="text" name="birthday" id="birthday" required
                              class="form-control"/>
                       <div class="invalid-feedback">
                         Campo obligatio
@@ -72,7 +104,7 @@
                 <div class="form-group mb-3">
                   <div class="row">
                     <div class="col-12 text-end">
-                      <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+                      <a class="btn btn-danger btn-sm" href="get-persons">Cancelar</a>
                       <button type="submit" class="btn btn-success btn-sm">Guardar</button>
                     </div>
                   </div>
@@ -88,7 +120,6 @@
 <script>
   // Example starter JavaScript for disabling form submissions if there are invalid fields
   (function () {
-    'use strict'
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.querySelectorAll('.needs-validation')
     // Loop over them and prevent submission
@@ -100,23 +131,18 @@
                   event.stopPropagation()
                 }
                 form.classList.add('was-validated')
+                let name = document.querySelector("#name").value;
+                let surname = document.querySelector("#surname").value;
+                let curp = document.querySelector("#curp").value;
+                console.log(name)
+                let birthday = document.querySelector("#birthday").value;
+                let newAction = "add-person?name="+ name + "&surname=" + surname + "&curp="+ curp +"&birthday=" + birthday;
+                console.log(newAction)
+                form.setAttribute("action", newAction);
+
               }, false)
             })
   })();
-
-  const handleFileChange = () => {
-    let inputFile = document.getElementById("pokemonImg").files;1
-    for (let i = 0; i < inputFile.length; i++) {
-      let reader = new FileReader();
-      reader.onloadend = (result) => {
-        let preview = document.getElementById("preview");
-        preview.innerHTML = "";
-        preview.innerHTML = "<img src='" + result.target.result
-                + "' style='height: 200px;width: auto;'/>";
-      }
-      reader.readAsDataURL(inputFile[i]);
-    }
-  }
 
   $(document).ready(() => {
     document.getElementById("loaderDiv").style.display = "none";
