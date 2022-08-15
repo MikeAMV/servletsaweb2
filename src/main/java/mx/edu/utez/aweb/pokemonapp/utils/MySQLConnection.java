@@ -8,7 +8,7 @@ public class MySQLConnection {
     public Connection getConnection() {
         final String DBNAME = "pokemon",
                 USERNAME = "root",
-                PASSWORD = "Sarahi29.",
+                PASSWORD = "root",
                 TIMEZONE = "America/Mexico_City",
                 USESSL = "false",
                 PUBLICKEY = "true";
