@@ -59,7 +59,7 @@ public class ServletAuth extends HttpServlet {
                     session.setAttribute("user", user);
                     //user.getRole() == "ADMIN" -> /dashboard
                     //user.getRole() == "STUDENT" -> /perfil
-                    urlRedirect = "/get-pokemons";
+                    urlRedirect = "/get-persons";
                 } else {
                     urlRedirect = "/signin?message=" + URLEncoder.encode(
                             "Usuario y/o contraseña incorrectos",

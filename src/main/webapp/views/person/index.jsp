@@ -73,7 +73,7 @@
                         <th>birthday</th>
                         </thead>
                         <tbody>
-                        <c:forEach var="person" items="${Persons}" varStatus="status">
+                        <c:forEach var="person" items="${persons}" varStatus="status">
                             <tr>
                                 <td>
                                     <c:out value="${person.id}"></c:out>
@@ -87,7 +87,7 @@
                                 <td><c:out value="${person.curp}"/></td>
                                 <td><c:out value="${person.birthday}"/></td>
                                 <td>
-                                    <a href="get-pokemon?id=${person.id}" class="btn btn-warning
+                                    <a href="get-person?id=${person.id}" class="btn btn-warning
                                     btn-sm"><i data-feather="edit"></i></a>
                                     <form action="delete-person" method="post">
                                         <input type="hidden" value="${person.id}" name="id"/>
@@ -109,12 +109,16 @@
 <jsp:include page="../../templates/footer.jsp"/>
 <script>
     $(document).ready(() => {
-        $('.datatable').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
-            },
-        });
+
         document.getElementById("loaderDiv").style.display = "none";
+        let $datatable = $('.datatable')
+        if ($datatable.DataTable) {
+            $datatable.DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
+                },
+            });
+        }
     })
     feather.replace();
 </script>
