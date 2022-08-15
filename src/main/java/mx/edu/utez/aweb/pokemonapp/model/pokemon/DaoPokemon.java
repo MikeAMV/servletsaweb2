@@ -29,9 +29,9 @@ public class DaoPokemon {
                 pokemon.setName(rs.getString("name"));
                 pokemon.setPokemonType(rs.getString("type"));
                 pokemon.setHealth(rs.getDouble("health"));
-                pokemon.setHeight(rs.getDouble("heigth"));
+                pokemon.setHeight(rs.getDouble("height"));
                 pokemon.setPower(rs.getDouble("power"));
-                pokemon.setWeight(rs.getDouble("weigth"));
+                pokemon.setWeight(rs.getDouble("weight"));
                 pokemon.setFileName(rs.getString("file_name"));
                 pokemons.add(pokemon);
             }
