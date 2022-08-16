@@ -76,7 +76,7 @@
                         <c:forEach var="person" items="${persons}" varStatus="status">
                             <tr>
                                 <td>
-                                    <c:out value="${person.id}"></c:out>
+                                    <c:out value="${status.count}"></c:out>
                                 </td>
                                 <td>
                                     <c:out value="${person.name}"></c:out>
