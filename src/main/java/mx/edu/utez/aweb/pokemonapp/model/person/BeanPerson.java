@@ -1,5 +1,5 @@
 package mx.edu.utez.aweb.pokemonapp.model.person;
-
+//MORONI RODRÍGUEZ BUENO
 public class BeanPerson {
     private int id;
     private String name;
