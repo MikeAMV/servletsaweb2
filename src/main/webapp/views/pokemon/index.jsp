@@ -78,12 +78,16 @@
 <jsp:include page="../../templates/footer.jsp"/>
 <script>
     $(document).ready(() => {
-        $('.datatable').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
-            },
-        });
+
         document.getElementById("loaderDiv").style.display = "none";
+        let $datatable = $('.datatable')
+        if ($datatable.DataTable) {
+            $datatable.DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
+                },
+            });
+        }
     })
     feather.replace();
 </script>
